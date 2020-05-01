@@ -13,7 +13,8 @@ class SignUP extends Component {
         passwordError:false,
         confirmPasswordError:false,
         passwordMatch:false,
-        confirmpasswordMatch:false
+        confirmpasswordMatch:false,
+        formerror: true
     }
 
     handleSubmit = (e) => {
@@ -57,6 +58,8 @@ class SignUP extends Component {
                 confirmpasswordMatch:true
             })
         }
+
+        this.setState ({formerror: false})
         console.log(this.state)
     }
 
@@ -122,7 +125,7 @@ render() {
                     onChange={this.handleInputChange} />
                     <br />
                     {this.state.passwordError ? <span>Password Cannot Be Empty</span> : null}
-                    {this.state.passwordMatch ? <span>Password Match Error</span> : null}
+                    {this.state.passwordMatch ? <span>Password MisMatchs</span> : null}
                     
       </div>
       <br/>
@@ -132,7 +135,7 @@ render() {
                     onChange={this.handleInputChange}/>
                     <br />
                     {this.state.confirmPasswordError ? <span>Confirm Password Cannot Be Empty</span> : null}
-                    {this.state.confirmpasswordMatch ? <span>Password Matched</span> : null}
+                    {this.state.confirmpasswordMatch ? <span></span> : null}
                     
       </div>
       <br/>
@@ -143,6 +146,8 @@ render() {
             Reset
         </button> 
         </form>
+
+        {!this.state.formerror ? <span>Submit Success</span>: null}
         </div>
     )
 }
