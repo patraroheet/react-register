@@ -10,8 +10,8 @@ render() {
         <div>
             <label>Go to SignIN</label>
             <br />
-            <Link to="/signin">SIGN-IN</Link>
-            <Link to="/signup">SIGN-Up</Link>
+            <button><Link to="/signin">SIGN-IN</Link></button>
+            <button><Link to="/signup">SIGN-Up</Link></button>
           
         </div>
     ); 

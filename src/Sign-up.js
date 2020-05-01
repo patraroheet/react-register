@@ -14,41 +14,46 @@ class SignUP extends Component {
         confirmPasswordError:false,
         passwordMatch:false,
         confirmpasswordMatch:false,
-        formerror: true
+        formerror: true,
+        validate:false
     }
 
     handleSubmit = (e) => {
     e.preventDefault();
+    var validate=this.state.validate;
     if(e.target.name == this.state.firstname) {
         this.setState({
             firstNameError:true
         })
+        validate=true
     }
-    else {
+    
     if (e.target.name == this.state.lastname) {
         this.setState({
             lastNameError:true
         })
-    } else {
+        validate=true
+    } 
         if (e.target.name == this.state.email) {
             this.setState({
                 emailError:true
             })
-        }else {
+            validate=true
+        }
             if(e.target.name == this.state.password) {
                 this.setState({
                     passwordError:true
                 })
-            } else {
+                validate=true
+            } 
                 if(e.target.name == this.state.confirmpassword) {
                     this.setState({
                         confirmPasswordError:true
                     })
+                    validate=true
                 }
-            }
-        }
-        }
-        }
+ 
+        
         if(this.state.password !== this.state.confirmpassword ) {
             this.setState({
                 passwordMatch:true
@@ -59,8 +64,9 @@ class SignUP extends Component {
             })
         }
 
-        this.setState ({formerror: false})
+        this.setState ({formerror: false,validate: true})
         console.log(this.state)
+        console.log(this.state.validate)
     }
 
     handleInputChange = (e) => {
@@ -100,7 +106,7 @@ render() {
       <input type="text" name="firstname" placeholder="First Name" value={this.state.firstname}
                     onChange={this.handleInputChange} />
                     <br />
-                    {this.state.firstNameError ? <span>FirstName Cannot Be Empty</span> : null}       
+                    {this.state.firstNameError ? <span style={{color: "red"}}>FirstName Cannot Be Empty</span> : null}       
       </div>
       <br/>
             <div>
@@ -108,7 +114,7 @@ render() {
       <input type="text" name="lastname" placeholder="Last Name" value={this.state.lastname}
                     onChange={this.handleInputChange} />
                     <br />
-                    {this.state.lastNameError ? <span>LastName Cannot Be Empty</span> : null}
+                    {this.state.lastNameError ? <span style={{color: "red"}}>LastName Cannot Be Empty</span> : null}
       </div>
       <br/>
             <div>
@@ -116,7 +122,7 @@ render() {
       <input type="email" name="email" placeholder="Email ID" value={this.state.email}
                     onChange={this.handleInputChange} />
                     <br />
-                    {this.state.emailError ? <span>Email Cannot be Empty</span> : null}
+                    {this.state.emailError ? <span style={{color: "red"}}>Email Cannot be Empty</span> : null}
       </div>
       <br/>
             <div>
@@ -124,8 +130,8 @@ render() {
       <input type="password" name="password" placeholder="PassWord" value={this.state.password}
                     onChange={this.handleInputChange} />
                     <br />
-                    {this.state.passwordError ? <span>Password Cannot Be Empty</span> : null}
-                    {this.state.passwordMatch ? <span>Password MisMatchs</span> : null}
+                    {this.state.passwordError ? <span style={{color: "red"}}>Password Cannot Be Empty</span> : null}
+                    {this.state.passwordMatch ? <span style={{color: "red"}}>Password MisMatch</span> : null}
                     
       </div>
       <br/>
@@ -134,7 +140,7 @@ render() {
       <input type="password" name="confirmpassword" placeholder="Confirm Password" value={this.state.confirmpassword}
                     onChange={this.handleInputChange}/>
                     <br />
-                    {this.state.confirmPasswordError ? <span>Confirm Password Cannot Be Empty</span> : null}
+                    {this.state.confirmPasswordError ? <span style={{color: "red"}}>Confirm Password Cannot Be Empty</span> : null}
                     {this.state.confirmpasswordMatch ? <span></span> : null}
                     
       </div>
@@ -147,7 +153,7 @@ render() {
         </button> 
         </form>
 
-        {!this.state.formerror ? <span>Submit Success</span>: null}
+     {!this.state.validate ? <span>Submit Success</span>: null}
         </div>
     )
 }
