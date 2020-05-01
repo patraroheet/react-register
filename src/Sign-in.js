@@ -4,18 +4,31 @@ import React, {Component} from "react";
 export default class SignIN extends Component {
     state={
         userName: "",
-        password: ""
+        password: "",
+        userNameError:false,
+        passwordError:false,
+        formerror: true
     }
 
     handleLogin = (e) => {
         e.preventDefault();
+        if (e.target.name == this.state.userName) {
+            this.setState({userNameError: true})
+        } else {
+            if(e.target.name == this.state.password) {
+                this.setState({passwordError: true})
+            }
+        }
+        this.setState ({formerror: false})
         console.log(this.state.userName);
         console.log(this.state.password);
         console.log(this.state);
     };
     handleInputChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            userNameError:false,
+            passwordError:false
         });
     };
 
@@ -36,6 +49,7 @@ export default class SignIN extends Component {
                     onChange={this.handleInputChange}
                     placeholder="User Name"
                     />
+                    {this.state.userNameError ? <span>UserName Empty</span> : null}
                     <br />
                     <label>Password</label>
                     <input
@@ -45,6 +59,8 @@ export default class SignIN extends Component {
                     onChange={this.handleInputChange}
                     placeholder="Password"
                     />
+                    {this.state.passwordError ? <span>Password Empty</span> : null}
+                    <br />
                     <div>
                     <button type="submit" color="primary">
                         Sign In
@@ -54,6 +70,8 @@ export default class SignIN extends Component {
                     </button>
                     </div>                  
                 </form>
+
+                {!this.state.formerror ? <span>SignIN Success</span>: null}
             </div>
         )
     }
