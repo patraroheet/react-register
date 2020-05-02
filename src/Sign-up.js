@@ -1,4 +1,5 @@
-import React, {Component} from "react"
+import React, {Component} from "react";
+import { Container, Col, Form, FormGroup, Label, Input,Button } from 'reactstrap';
 
 class SignUP extends Component {
     state = {
@@ -99,62 +100,76 @@ class SignUP extends Component {
 
 render() {
     return(
-        <div>
-            <form onSubmit={this.handleSubmit}>
-            <div>
-            <label>FirstName</label>
-      <input type="text" name="firstname" placeholder="First Name" value={this.state.firstname}
+        
+        <Container>
+            <Col  sm="12" md={{ size: 8, offset: 4 }}>
+            <h4>SIGN UP BELOW</h4>
+            <Form onSubmit={this.handleSubmit}>
+                <Col sm={4}>
+            <FormGroup>
+            <Label>FirstName</Label>
+      <Input type="text" name="firstname" placeholder="First Name" value={this.state.firstname}
                     onChange={this.handleInputChange} />
                     <br />
                     {this.state.firstNameError ? <span style={{color: "red"}}>FirstName Cannot Be Empty</span> : null}       
-      </div>
-      <br/>
-            <div>
-            <label>LastName</label>
-      <input type="text" name="lastname" placeholder="Last Name" value={this.state.lastname}
+            </FormGroup>
+            </Col>
+            <Col sm={4}>
+            <FormGroup>
+            <Label>LastName</Label>
+      <Input type="text" name="lastname" placeholder="Last Name" value={this.state.lastname}
                     onChange={this.handleInputChange} />
                     <br />
                     {this.state.lastNameError ? <span style={{color: "red"}}>LastName Cannot Be Empty</span> : null}
-      </div>
-      <br/>
-            <div>
-            <label>Email</label>
-      <input type="email" name="email" placeholder="Email ID" value={this.state.email}
+            </FormGroup>
+            </Col>
+            <Col sm={4}>
+            <FormGroup>
+            <Label>Email</Label>
+      <Input type="email" name="email" placeholder="Email ID" value={this.state.email}
                     onChange={this.handleInputChange} />
                     <br />
                     {this.state.emailError ? <span style={{color: "red"}}>Email Cannot be Empty</span> : null}
-      </div>
-      <br/>
-            <div>
-            <label>Password</label>
-      <input type="password" name="password" placeholder="PassWord" value={this.state.password}
+            </FormGroup>
+            </Col>
+            <Col sm={4}>
+            <FormGroup>
+        <Label>Password</Label>
+      <Input type="password" name="password" placeholder="PassWord" value={this.state.password}
                     onChange={this.handleInputChange} />
                     <br />
                     {this.state.passwordError ? <span style={{color: "red"}}>Password Cannot Be Empty</span> : null}
                     {this.state.passwordMatch ? <span style={{color: "red"}}>Password MisMatch</span> : null}
-                    
-      </div>
-      <br/>
-            <div>
-            <label>Confirm Passowrd</label>
-      <input type="password" name="confirmpassword" placeholder="Confirm Password" value={this.state.confirmpassword}
+        </FormGroup>
+            </Col>
+        <Col sm={4}>
+        <FormGroup>
+        <Label>Confirm Passowrd</Label>
+      <Input type="password" name="confirmpassword" placeholder="Confirm Password" value={this.state.confirmpassword}
                     onChange={this.handleInputChange}/>
                     <br />
                     {this.state.confirmPasswordError ? <span style={{color: "red"}}>Confirm Password Cannot Be Empty</span> : null}
                     {this.state.confirmpasswordMatch ? <span></span> : null}
-                    
-      </div>
-      <br/>
-      <button type="submit" color="primary">
-            Sign UP
-        </button>
-        <button color="link" onClick={this.handleReset} >
-            Reset
-        </button> 
-        </form>
 
-     {!this.state.validate ? <span>Submit Success</span>: null}
-        </div>
+        </FormGroup>
+        </Col>
+        <Col sm="12" md={{ size: 8}}>
+      <Button type="submit" color="info">
+            Sign UP
+        </Button>
+        <Button color="warning" onClick={this.handleReset} >
+            Reset
+        </Button>
+        
+        </Col> 
+        {!this.state.validate ? <span>Submit Success</span>: null}
+
+        </Form>
+
+        </Col>
+
+     
+        </Container>
     )
 }
 }

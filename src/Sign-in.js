@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import { Container, Col, Form, FormGroup, Label, Input,Button,Fade } from 'reactstrap';
+
 
 
 export default class SignIN extends Component {
@@ -7,7 +9,8 @@ export default class SignIN extends Component {
         password: "",
         userNameError:false,
         passwordError:false,
-        formerror: true
+        formerror: true,
+        
     }
 
     handleLogin = (e) => {
@@ -34,46 +37,55 @@ export default class SignIN extends Component {
         this.props.history.push(`/signup`);
     };
 
-
     render() {
         return(
-            <div>
-                <form  onSubmit={this.handleLogin}>
-                    <label>Username</label>
-                    <input
+            <Container>
+            <Col sm="12" md={{ size: 8, offset: 4 }}>
+                <Form  onSubmit={this.handleLogin}>
+                    <h4>SIGN IN BELOW</h4>
+                    <Col sm={4}>
+                    <FormGroup>
+                    <Label>Username</Label>
+                    <Input
                     type="text"
                     name="userName"
                     value={this.state.userName}
                     onChange={this.handleInputChange}
                     placeholder="User Name"
                     />
-                    <br />
                     {this.state.userNameError ? <span style={{color: "red"}}>UserName Empty</span> : null}
-                    <br />
-                    <label>Password</label>
-                    <input
+
+                    </FormGroup>
+                    </Col>  
+                    <Col sm={4}>
+                    <FormGroup>
+                    <Label>Password</Label>
+                    <Input
                     type="password"
                     name="password"
                     value={this.state.password}
                     onChange={this.handleInputChange}
                     placeholder="Password"
                     />
-                    <br />
                     {this.state.passwordError ? <span style={{color: "red"}}>Password Empty</span> : null}
-                    <br />
-                    <div>
-                    <button type="submit" color="primary">
+
+                    </FormGroup>
+                    </Col>
+                    <Col  sm="12" md={{ size: 8}}>
+                    <Button type="submit" color="info" onClick={this.handleSuccess}>
                         Sign In
-                    </button>
-                    <button color="link" onClick={this.handleClick} type="button">
+                    </Button>
+                    <Button color="info" onClick={this.handleClick} type="button">
                         Sign Up
-                    </button>
-                    </div>                  
-                </form>
+                    </Button>
+                    </Col>
+                </Form>
+                </Col>
+
 
          {!this.state.formerror 
                 ? <span>SignIN Success</span>: null}
-            </div>
+            </Container>
         )
     }
 }
