@@ -1,5 +1,7 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import { Container, Col, Label,Button } from 'reactstrap';
+
 
 export default class Home extends React.Component {
     handleClick = () => {
@@ -7,13 +9,13 @@ export default class Home extends React.Component {
     };
 render() {
     return (
-        <div>
-            <label>Go to SignIN</label>
+        <Container>
+            <Label>Go to SignIN</Label>
             <br />
-            <button><Link to="/signin">SIGN-IN</Link></button>
-            <button><Link to="/signup">SIGN-Up</Link></button>
+            <Button outline color="success"><Link to="/signin">SIGN-IN</Link></Button>
+            <Button outline color="success"><Link to="/signup">SIGN-Up</Link></Button>
           
-        </div>
+        </Container>
     ); 
 }
     

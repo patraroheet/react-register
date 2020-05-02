@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { Container, Col, Form, FormGroup, Label, Input,Button } from 'reactstrap';
+import Toast from 'light-toast';
 
 class SignUP extends Component {
     state = {
@@ -15,7 +16,6 @@ class SignUP extends Component {
         confirmPasswordError:false,
         passwordMatch:false,
         confirmpasswordMatch:false,
-        formerror: true,
         validate:false
     }
 
@@ -26,32 +26,32 @@ class SignUP extends Component {
         this.setState({
             firstNameError:true
         })
-        validate=true
+        validate=false
     }
     
     if (e.target.name == this.state.lastname) {
         this.setState({
             lastNameError:true
         })
-        validate=true
+        validate=false
     } 
         if (e.target.name == this.state.email) {
             this.setState({
                 emailError:true
             })
-            validate=true
+            validate=false
         }
             if(e.target.name == this.state.password) {
                 this.setState({
                     passwordError:true
                 })
-                validate=true
+                validate=false
             } 
                 if(e.target.name == this.state.confirmpassword) {
                     this.setState({
                         confirmPasswordError:true
                     })
-                    validate=true
+                    validate=false
                 }
  
         
@@ -65,7 +65,8 @@ class SignUP extends Component {
             })
         }
 
-        this.setState ({formerror: false,validate: true})
+        this.setState ({validate: true})
+
         console.log(this.state)
         console.log(this.state.validate)
     }
@@ -154,7 +155,8 @@ render() {
         </FormGroup>
         </Col>
         <Col sm="12" md={{ size: 8}}>
-      <Button type="submit" color="info">
+      <Button type="submit" color="info" onClick={() => {
+      Toast.info('Submit Success', 3000)}}>
             Sign UP
         </Button>
         <Button color="warning" onClick={this.handleReset} >
@@ -162,7 +164,7 @@ render() {
         </Button>
         
         </Col> 
-        {!this.state.validate ? <span>Submit Success</span>: null}
+    {/* {!this.state.validate ? <span>{" "}</span>: <span>Submit Success</span>} */}
 
         </Form>
 
