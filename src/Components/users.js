@@ -1,34 +1,55 @@
 import React, {Component} from 'react';
-import { hashHistory } from 'react-router';
-import { Container,CardDeck,CardColumns, Col,Row, Form, FormGroup, Label, Input,Button,Card, CardBody, CardTitle } from 'reactstrap';
+import { Container, Col,Row, Button,Card, CardBody, CardTitle } from 'reactstrap';
 
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
-export default class Users extends Component {
+class Users extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user: [] 
+            user: [],
+            dataid: null 
         }
     }
 
     componentDidMount() {
+        this.fetchData();   
+    }
+
+    fetchData = () => {
         axios.get(`https://jsonplaceholder.typicode.com/posts`)
         .then(res => {
-            this.setState({user: res.data});
+            this.setState({user: res.data});  
         })
+        .catch(
+            err => {
+                console.log(err);
+            }
+        )
     }
 
-    handleInfoClick = (props) => {
-        this.props.history.push(`/${this.state.user.id}/userdetail`);
-    }
+    handleInfoClick = (id) => {
+        axios.get(`https://jsonplaceholder.typicode.com/posts/` + id)
+        .then(res => {
+             console.log("selected ID: ",res);
+            this.setState({dataid: id})
+            this.props.history.push({
+                pathname: '/userdetails',
+                state: {dataid: res.data}
+            }
+    
+            );       
+        })
+        .catch(
+            err =>{console.error(err)}
+        ) 
+    }   
+    
 
-    render() {
+    render() {  
         return (
-            // <ul>
-            //     {this.state.user.map(User => <li key={User.id}>{User.title}</li>)}
-            // </ul>
         <Container fluid>
             <Row>
             {this.state.user.map(User => 
@@ -38,10 +59,10 @@ export default class Users extends Component {
                     <CardTitle>
                         {User.title}
                     </CardTitle>
-                    <Button onClick={this.handleInfoClick}>
-                        View Info
+                    <Button onClick={()=>this.handleInfoClick(User.id)}>
+                        View Info  
                     </Button>
-                </CardBody>
+                </CardBody> 
             </Card>
             </Col>           
                 )}
@@ -50,3 +71,5 @@ export default class Users extends Component {
         )
     }
 }
+
+export default withRouter(Users);
