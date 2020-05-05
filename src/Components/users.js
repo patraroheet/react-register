@@ -15,12 +15,14 @@ class Users extends Component {
     }
 
     componentDidMount() {
+        
         this.fetchData();   
     }
 
     fetchData = () => {
         axios.get(`https://jsonplaceholder.typicode.com/posts`)
         .then(res => {
+            console.log("Response:", res)
             this.setState({user: res.data});  
         })
         .catch(
@@ -33,13 +35,11 @@ class Users extends Component {
     handleInfoClick = (id) => {
         axios.get(`https://jsonplaceholder.typicode.com/posts/` + id)
         .then(res => {
-             console.log("selected ID: ",res);
             this.setState({dataid: id})
             this.props.history.push({
                 pathname: '/userdetails',
                 state: {dataid: res.data}
-            }
-    
+            }   
             );       
         })
         .catch(

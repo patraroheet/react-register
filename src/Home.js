@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import { Container, Col, Label,Button } from 'reactstrap';
+import { Container, Label,Button } from 'reactstrap';
 
 
 export default class Home extends React.Component {
@@ -14,6 +14,8 @@ render() {
             <br />
             <Button outline color="success"><Link to="/signin">SIGN-IN</Link></Button>
             <Button outline color="success"><Link to="/signup">SIGN-Up</Link></Button>
+            <Button outline color="success"><Link to="/users">USERS</Link></Button>
+            <Button outline color="success"><Link to="/CustomUser">CUSTOM</Link></Button>
           
         </Container>
     ); 

@@ -6,6 +6,7 @@ import Home from './Home';
 import NotFound from './NotFound';
 import Userdetail from './Components/userdetail';
 import Users from './Components/Users';
+import CustomUser from './Components/CustomUser';
 
 
 
@@ -17,6 +18,7 @@ export default function PageRoutes() {
             <Route path="/signin" component={SignIN} />
             <Route path="/users" component={Users} />
             <Route path="/userdetails" component={Userdetail} />
+            <Route path="/CustomUser" component={CustomUser} />
             <Route component={NotFound} />
         </Switch>
     )    
