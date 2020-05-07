@@ -164,7 +164,7 @@ render() {
         </Button>
         
         </Col> 
-    {/* {!this.state.validate ? <span>{" "}</span>: <span>Submit Success</span>} */}
+    {!this.state.validate ? <span>{" "}</span>: <span>Submit Success</span>}
 
         </Form>
 

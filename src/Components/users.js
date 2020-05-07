@@ -39,8 +39,8 @@ class Users extends Component {
             this.props.history.push({
                 pathname: '/userdetails',
                 state: {dataid: res.data}
-            }   
-            );       
+            }
+            );
         })
         .catch(
             err =>{console.error(err)}

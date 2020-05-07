@@ -16,6 +16,7 @@ render() {
             <Button outline color="success"><Link to="/signup">SIGN-Up</Link></Button>
             <Button outline color="success"><Link to="/users">USERS</Link></Button>
             <Button outline color="success"><Link to="/CustomUser">CUSTOM</Link></Button>
+            <Button outline color="success"><Link to="/useralbums">ALBUMS</Link></Button>
           
         </Container>
     ); 
