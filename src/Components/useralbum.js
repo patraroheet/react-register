@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import AlbumContent from './albumcontent';
@@ -22,18 +23,15 @@ import  {
 
       componentDidMount() {
           this.getAlbums();
-      }
-    //   componentDidUpdate() {
-    //     if(this.state.ID !== null) {
-    //         this.setState({clicked:false})
-    //       }
-    //   }
-    
+      }    
 
       getAlbums = () => {
           axios.get(`https://picsum.photos/v2/list`)
           .then(res => {
               this.setState({albums: res.data})
+            //   {this.state.albums.map(index_ID, index) =>
+            //       this.setState({ID: index_ID.index})
+            //   }
           })
           .catch (err => {
               console.log(err)
@@ -41,29 +39,32 @@ import  {
       }
 
       handleInfo = (id) => {
-          
           axios.get(`https://picsum.photos/id/`+ id +`/info`)
           .then(res => {
-              this.setState({album_id: res.data})       
+              this.setState({album_id: res.data})
+       
               this.props.history.push({
                   pathname: '/albumcontent',
-                  state: {album_id: res.data}
+                  state: {album_id: res.data},
               })
+            this.setState({ID: id}) 
           })
-          this.setState({ID: id})
-          this.setState({clicked: false})
-
-         
       }
+
+    //   updateState = () => {
+    //     this.setState({clicked: false})
+    //   }
 
 
       render() {
-        console.log("clicked Useralbum:",this.props)
-        console.log("clicked Useralbum state:",this.state)
+        // console.log("clicked Useralbum:",this.props)
+        console.log("clicked Useralbum state:",this.state.albums)
           return (
+              <>
               <CardColumns>
-        {this.state.albums.map(Albs =>
-        <Card key={Albs.id} >
+        {
+        this.state.albums.map((Albs, index) =>
+        <Card key={index} >
             <CardImg top width="100%" src={Albs.download_url} alt="Card-image" />
             <CardBody>
                 <CardTitle>
@@ -76,24 +77,26 @@ import  {
 
             <CardColumns style={{margin :"0 auto",display:"flex"}}>
                 {
-                    (this.state.clicked === false)
-                    ? 
-                    <Button disabled  color="secondary" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
-                    Viewed Info
+                Albs.id === this.props.location.state.ID
+                ? <Button  disabled color="none" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
+                Viewed Info
                </Button>
-                : 
-                <Button onClick={()=> {this.handleInfo(Albs.id)}} color="secondary" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
-                View Info
+               :<Button onClick={()=> {
+                this.handleInfo(Albs.id);
+                // this.updateState();
+                }}  color="secondary" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
+             View Info
           </Button>
-                }
+            }
+                
+            
                 
             </CardColumns>
-
             </Card>
         )}
-        {/* <AlbumContent updateParent={this.updateState} /> */}
-
               </CardColumns>
+              {/* <AlbumContent /> */}
+              </>
           )
       }
   }

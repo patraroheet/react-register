@@ -11,25 +11,24 @@ class AlbumContent extends Component {
 constructor(props) {
     super(props);
     this.state = {
-        albContent: []  
+        albContent: [],
     }
 }
 
 componentDidMount() {
     const albData = this.props.location.state.album_id;
     this.setState({albContent: albData})
-    console.log(this.state.albContent);
+    
 }
 
-goBack = (id) => {
+handleReturn = (id) => {
     this.props.history.push(
 {        pathname: '/useralbums',
-        state: {ID: id,clicked : false}
+        state: {ID: id,clicked : false},
 }    );
 // console.log(id,"required id")
 }
 render() {
-    // console.log(this.props.history.location)
     const albcontent = this.state.albContent
     return(
         <Card>
@@ -40,7 +39,10 @@ render() {
         <small>{albcontent.height}x{albcontent.width}</small>
                 </CardSubtitle>
             </CardBody>
-            <Button onClick={()=>this.goBack(albcontent.id)} style={{margin :"0 auto",display:"flex",justifyContent:"center"}}>
+            <Button onClick={()=>{
+                this.handleReturn(albcontent.id);
+                /*this.setState({clicked: this.props.location.state.clicked})*/
+                }} style={{margin :"0 auto",display:"flex",justifyContent:"center"}}>
                 GoBack
             </Button>
         </Card>
