@@ -1,0 +1,9 @@
+
+
+export const GETALBUM_SUCCESS = "GETALBUM_SUCCESS";
+export const GETALBUM_FAIL = "GETALBUM_FAIL";
+
+export const ALBUM_ID_SUCCESS = "ALBUM_ID_SUCCESS";
+export const ALBUM_ID_FAIL = "ALBUM_ID_FAIL";
+
+export const RETURN_BACK_ID = "RETURN_BACK_ID";

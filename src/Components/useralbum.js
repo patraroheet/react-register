@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import AlbumContent from './albumcontent';
 import  {
     Card, Button, CardImg, CardTitle, CardText, CardColumns,
     CardSubtitle, CardBody
   } from 'reactstrap';
-  
+  import { connect } from 'react-redux';
+  import  {getAlbums}  from '../store/Actions/useralbum_action';
+  import  {handleInfo}  from '../store/Actions/useralbum_action';
+
 
   class UserAlbums extends Component {
       constructor(props) {
@@ -22,48 +23,24 @@ import  {
       }
 
       componentDidMount() {
-          this.getAlbums();
+        this.props.getAlbums()
+          console.log("DiD Mount",this.props)  
       }    
 
-      getAlbums = () => {
-          axios.get(`https://picsum.photos/v2/list`)
-          .then(res => {
-              this.setState({albums: res.data})
-            //   {this.state.albums.map(index_ID, index) =>
-            //       this.setState({ID: index_ID.index})
-            //   }
-          })
-          .catch (err => {
-              console.log(err)
-          })
+      componentWillReceiveProps(Props){
+        console.log("Will receive Props",Props)
       }
-
-      handleInfo = (id) => {
-          axios.get(`https://picsum.photos/id/`+ id +`/info`)
-          .then(res => {
-              this.setState({album_id: res.data})
-       
-              this.props.history.push({
-                  pathname: '/albumcontent',
-                  state: {album_id: res.data},
-              })
-            this.setState({ID: id}) 
-          })
-      }
-
-    //   updateState = () => {
-    //     this.setState({clicked: false})
-    //   }
 
 
       render() {
-        // console.log("clicked Useralbum:",this.props)
-        console.log("clicked Useralbum state:",this.state.albums)
+        console.log("State From store:",this.props)
+        const store_albums = this.props.userAlbums.albums
+        const albumID = this.props.albumContentID.ID
           return (
               <>
               <CardColumns>
         {
-        this.state.albums.map((Albs, index) =>
+        store_albums && store_albums.map((Albs, index) =>
         <Card key={index} >
             <CardImg top width="100%" src={Albs.download_url} alt="Card-image" />
             <CardBody>
@@ -74,31 +51,37 @@ import  {
         <small>{Albs.height}x{Albs.width}</small>
                 </CardSubtitle>
             </CardBody>
-
             <CardColumns style={{margin :"0 auto",display:"flex"}}>
-                {
-                Albs.id === this.props.location.state.ID
-                ? <Button  disabled color="none" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
-                Viewed Info
-               </Button>
-               :<Button onClick={()=> {
-                this.handleInfo(Albs.id);
-                // this.updateState();
+                
+               {Albs.id === albumID
+               ?  <Button  disabled color="none" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
+               Viewed Info
+              </Button>
+              : <Button onClick={()=> {
+                this.props.handleInfo(Albs.id);
+                this.props.history.push('/albumcontent')
                 }}  color="secondary" style={{margin :"0 auto",display:"flex",width:"100%",justifyContent:"center"}}>
              View Info
           </Button>
-            }
-                
+               }
             
-                
             </CardColumns>
             </Card>
         )}
               </CardColumns>
-              {/* <AlbumContent /> */}
               </>
           )
       }
   }
+  function mapStateToProps(state) {
+    return{
+      userAlbums:state.useralbum_reducer,
+      albumContentID:state.albumcontent_reducer
+    }
+  }
+  const mapDispatchToProps = () => ({
+    getAlbums: getAlbums,
+    handleInfo: handleInfo
+  })
 
-  export default withRouter(UserAlbums);
+export default connect(mapStateToProps,mapDispatchToProps())(withRouter(UserAlbums));

@@ -4,32 +4,27 @@ import  {
     Card, Button, CardImg, CardTitle, CardText, CardColumns,
     CardSubtitle, CardBody
   } from 'reactstrap';
-
-
+import { connect } from 'react-redux';
+import {handleReturn} from '../store/Actions/albumcontent_action'
+ 
 
 class AlbumContent extends Component {
 constructor(props) {
     super(props);
-    this.state = {
-        albContent: [],
-    }
+    // this.state = {
+    //     albContent: []
+    // }
 }
 
 componentDidMount() {
-    const albData = this.props.location.state.album_id;
-    this.setState({albContent: albData})
-    
+    // const albData = this.props.location.state.album_id;
+    // this.setState({albContent: albData})   
 }
 
-handleReturn = (id) => {
-    this.props.history.push(
-{        pathname: '/useralbums',
-        state: {ID: id,clicked : false},
-}    );
-// console.log(id,"required id")
-}
+
+
 render() {
-    const albcontent = this.state.albContent
+    const albcontent = this.props.album_id
     return(
         <Card>
             <CardImg top width="100%" src={albcontent.download_url} alt="Card-image" />
@@ -40,8 +35,8 @@ render() {
                 </CardSubtitle>
             </CardBody>
             <Button onClick={()=>{
-                this.handleReturn(albcontent.id);
-                /*this.setState({clicked: this.props.location.state.clicked})*/
+                this.props.handleReturn(albcontent.id)
+                this.props.history.push('/useralbums')
                 }} style={{margin :"0 auto",display:"flex",justifyContent:"center"}}>
                 GoBack
             </Button>
@@ -50,4 +45,14 @@ render() {
 }
 }
 
-export default withRouter(AlbumContent);
+function mapStateToProps(state) {
+    const albumcontentstate = state.useralbum_reducer;
+    return albumcontentstate;
+  }
+  const mapDispatchToProps = () => ({
+    handleReturn: handleReturn
+  })
+  
+  //export default connect(mapStateToProps,mapActionToProps())(UserPosts)
+
+export default connect(mapStateToProps,mapDispatchToProps())(withRouter(AlbumContent))
