@@ -9,14 +9,14 @@ export default class Home extends React.Component {
     };
 render() {
     return (
-        <Container>
+        <Container className="ui vertical buttons" style={{display:"-webkit-inline-box",width:"15rem"}}>
             <Label>Go to SignIN</Label>
             <br />
-            <Button outline color="success"><Link to="/signin">SIGN-IN</Link></Button>
-            <Button outline color="success"><Link to="/signup">SIGN-Up</Link></Button>
-            <Button outline color="success"><Link to="/users">USERS</Link></Button>
-            <Button outline color="success"><Link to="/CustomUser">CUSTOM</Link></Button>
-            <Button outline color="success"><Link to="/useralbums">ALBUMS</Link></Button>
+            <Button className="small ui teal button"><Link to="/signin">SIGN-IN</Link></Button>
+            <Button className="small ui teal button"><Link to="/signup">SIGN-Up</Link></Button>
+            <Button className="small ui teal button"><Link to="/users">USERS</Link></Button>
+            <Button className="small ui teal button"><Link to="/CustomUser">CUSTOM</Link></Button>
+            <Button className="small ui teal button"><Link to="/useralbums">ALBUMS</Link></Button>
         </Container>
     ); 
 }

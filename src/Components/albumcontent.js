@@ -5,7 +5,9 @@ import  {
     CardSubtitle, CardBody
   } from 'reactstrap';
 import { connect } from 'react-redux';
-import {handleReturn} from '../store/Actions/albumcontent_action'
+import {handleReturn} from '../store/Actions/albumcontent_action';
+import axios from 'axios';
+
  
 
 class AlbumContent extends Component {
@@ -17,16 +19,22 @@ constructor(props) {
 }
 
 componentDidMount() {
-    // const albData = this.props.location.state.album_id;
-    // this.setState({albContent: albData})   
+    console.log("from albumcontent did mount",this.props)
+    this.getPhoto();
 }
 
-
+getPhoto =()=> {
+    axios.get(`http://placekitten.com/200/300`)
+    .then(res => {
+        console.log("Photos:",res)
+    })
+}
 
 render() {
+    console.log("from albumcontent render",this.props)
     const albcontent = this.props.album_id
     return(
-        <Card>
+        <Card style={{width:"55em"}}>
             <CardImg top width="100%" src={albcontent.download_url} alt="Card-image" />
             <CardBody>
     <CardTitle>{albcontent.author}</CardTitle>

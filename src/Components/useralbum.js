@@ -1,25 +1,25 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 import  {
-    Card, Button, CardImg, CardTitle, CardText, CardColumns,
+    Card, Button, CardImg, CardTitle, CardGroup, CardColumns,
     CardSubtitle, CardBody
   } from 'reactstrap';
   import { connect } from 'react-redux';
   import  {getAlbums}  from '../store/Actions/useralbum_action';
   import  {handleInfo}  from '../store/Actions/useralbum_action';
+  import store from '../store/store_index';
 
 
   class UserAlbums extends Component {
       constructor(props) {
           super(props);
 
-          this.state = {
-              albums: [],
-              album_id: [],
-              ID: null,
-              clicked: true
-          } 
+          // this.state = {
+          //     albums: [],
+          //     album_id: [],
+          //     ID: null,
+          //     clicked: true
+          // } 
       }
 
       componentDidMount() {
@@ -33,14 +33,14 @@ import  {
 
 
       render() {
-        console.log("State From store:",this.props)
-        const store_albums = this.props.userAlbums.albums
-        const albumID = this.props.albumContentID.ID
+        // console.log("State From store:",this.props)
+        const store_albums = store.getState().useralbum_reducer.albums
+        const albumID = store.getState().albumcontent_reducer.ID
           return (
               <>
               <CardColumns>
         {
-        store_albums && store_albums.map((Albs, index) =>
+        store_albums.map((Albs, index) =>
         <Card key={index} >
             <CardImg top width="100%" src={Albs.download_url} alt="Card-image" />
             <CardBody>
@@ -64,7 +64,6 @@ import  {
              View Info
           </Button>
                }
-            
             </CardColumns>
             </Card>
         )}
@@ -75,8 +74,9 @@ import  {
   }
   function mapStateToProps(state) {
     return{
-      userAlbums:state.useralbum_reducer,
-      albumContentID:state.albumcontent_reducer
+      state
+      // userAlbums:state.useralbum_reducer
+      // albumContentID:state.albumcontent_reducer
     }
   }
   const mapDispatchToProps = () => ({

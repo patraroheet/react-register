@@ -33,9 +33,6 @@ export const handleInfo = (id) => dispatch =>  {
         payload: err    
     });
 })
-// this.props.history.push({
-//     pathname: '/albumcontent'
-// })
 }
 
 

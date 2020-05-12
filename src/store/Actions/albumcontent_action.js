@@ -1,12 +1,7 @@
 import {RETURN_BACK_ID} from '../ActionTypes/action_type';
+import store from '../store_index';
 
 
-// export const loadAlbumContent = () => {
-//     dispatch({
-//         type: LOAD_CONTENT
-//         payload: 
-//     })
-// }
 
 
 export const handleReturn = (id) => dispatch => {

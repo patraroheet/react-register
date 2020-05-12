@@ -1,7 +1,6 @@
 import { RETURN_BACK_ID} from "../ActionTypes/action_type";
 
 const initialState = {
-    albumContent: [],
     ID: null
 }
 
